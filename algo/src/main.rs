@@ -1,5 +1,15 @@
+use std::array;
+
+mod string_algo;
+
 fn main() {
-    let items = [1, 4, 5, 9, 11, 16, 20, 35, 89];
+
+    println!("{}", string_algo::reverse_string(String::from("The Daily Byte")))
+   
+}
+
+/*  binary search example
+ let items = [1, 4, 5, 9, 11, 16, 20, 35, 89];
     let k = 4;
 
     match binary_search(k, &items) {
@@ -14,7 +24,7 @@ fn main() {
         Some(index) => println!("Found {} at index {}", k, index),
         None => println!("{} not found in the array", k),
     }
-}
+ */
 
 fn binary_search(k: i32, items: &[i32]) -> Option<i32> {
     let mut low: i32 = 0;
