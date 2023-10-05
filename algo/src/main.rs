@@ -1,10 +1,7 @@
-use std::array;
 
 mod string_algo;
 
 fn main() {
-
-    println!("{}", string_algo::reverse_string(String::from("The Daily Byte")))
    
 }
 
