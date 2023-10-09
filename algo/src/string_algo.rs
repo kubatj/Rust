@@ -6,8 +6,6 @@ Ex: Given the following strings...
 “civic”, return “civic”
  */
 
-use std::ascii::AsciiExt;
-
  pub fn reverse_string(word: String) -> String {
 
    let mut res: Vec<char> = word.chars().collect();
@@ -73,6 +71,34 @@ pub fn is_palindrome(str: String) -> bool {
 
 }
 
+/*
+This question is asked by Amazon. Given a string representing the sequence of moves a robot vacuum makes, return whether or not it will return to its original position. The string will only contain L, R, U, and D characters, representing left, right, up, and down respectively.
+Ex: Given the following strings...
+"LR", return true
+"URURD", return false
+"RUULLDRD", return true
+ */
+
+ fn vacuum_cleaner(path: String) -> bool {
+  let mut x = 0;
+  let mut y = 0; 
+  let iterable_str: Vec<char> = path.chars().collect();
+
+
+  for direction in iterable_str {
+
+    match direction {
+      'L' => x -= 1,
+      'R' => x += 1,
+      'D' => y -= 1,
+      'U' => y += 1,
+      _ => (),
+    }
+  }
+
+  x == 0 && y ==0
+ }
+
 
  // test module
  #[cfg(test)]
@@ -93,6 +119,13 @@ pub fn is_palindrome(str: String) -> bool {
     assert_eq!(is_palindrome(String::from("level")), true);
     assert_eq!(is_palindrome(String::from("algorithm")), false);
     assert_eq!(is_palindrome(String::from("A man, a plan, a canal: Panama.")), true)
+   }
+
+   #[test]
+   fn test_vaccum_cleaner() {
+    assert_eq!(vacuum_cleaner(String::from("LR")), true);
+    assert_eq!(vacuum_cleaner(String::from("URURD")), false);
+    assert_eq!(vacuum_cleaner(String::from("RUULLDRD")), true)
    }
  }
     
