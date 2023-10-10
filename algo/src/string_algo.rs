@@ -100,6 +100,122 @@ Ex: Given the following strings...
  }
 
 
+ /*
+  This question is asked by Google. Given a string, return whether or not it uses capitalization correctly. A string correctly uses capitalization if all letters are capitalized, no letters are capitalized, or only the first letter is capitalized.
+
+  Ex: Given the following strings...
+  "USA", return true
+  "Calvin", return true
+  "compUter", return false
+  "coding", return true
+  */
+
+  fn is_capitalization_correct(word: String) -> bool {
+    let iter: Vec<char> = word.chars().collect();
+
+    if iter[0].is_ascii_uppercase() && iter[1].is_ascii_uppercase() {
+      let mut i = 2; 
+
+      while i < iter.len() { 
+        if !iter[i].is_ascii_uppercase() {
+          return false
+        }
+
+        i+=1;
+
+      }
+    }
+
+    else if iter[0].is_ascii_uppercase() && !iter[1].is_ascii_uppercase() {
+     let mut i = 2; 
+
+     while i < iter.len() {
+      if iter[i].is_ascii_uppercase() {
+        return false
+      }
+      
+      i += 1 ;
+     } 
+      
+    }
+
+    else if !iter[0].is_ascii_uppercase() {
+      for c in iter {
+        if c.is_ascii_uppercase() {
+          return false
+        }
+      }
+      
+    }
+
+
+    true
+  }
+
+  /*
+     This question is asked by Apple. Given two binary strings (strings containing only 1s and 0s) return their sum (also as a binary string). 
+    Note: neither binary string will contain leading 0s unless the string itself is 0 
+
+    Ex: Given the following binary strings...
+    "100" + "1", return "101"
+    "11" + "1", return "100"
+    "1" + "0", return  "1"
+   */
+
+  fn binary_add(binary_a: String, binary_b: String) -> String {
+
+    let array_a: Vec<char> = binary_a.chars().collect();
+    let array_b: Vec<char> = binary_b.chars().collect();
+
+    let mut result = Vec::new();
+    let mut carry = 0;
+
+    let max_len = array_a.len().max(array_b.len());
+
+    for i in 0..max_len { 
+
+      let a_digit = if i < array_a.len() {
+        array_a[array_a.len() - 1 - i].to_digit(2).unwrap()
+      } else {
+        0
+      };
+
+      let b_digit = if i < array_b.len() {
+        array_b[array_b.len() - 1 - i].to_digit(2).unwrap()
+      } else {
+        0
+      };
+
+      let sum = a_digit + b_digit + carry;
+      result.push((sum % 2).to_string());
+      carry = sum/2;
+    }
+
+    if carry > 0 {
+      result.push("1".to_string())
+    }
+
+    result.reverse();
+    result.join("")
+  } 
+
+  /*
+    This question is asked by Microsoft. Given an array of strings, return the longest common prefix that is shared amongst all strings. 
+    Note: you may assume all strings only contain lowercase alphabetical characters. 
+
+    Ex: Given the following arrays...
+    ["colorado", "color", "cold"], return "col"
+    ["a", "b", "c"], return ""
+    ["spot", "spotty", "spotted"], return "spot"
+   */
+
+
+ // fn longest_common_prefix(words: Array<String>) -> String {
+
+ // }
+
+
+
  // test module
  #[cfg(test)]
  mod tests {
@@ -126,6 +242,21 @@ Ex: Given the following strings...
     assert_eq!(vacuum_cleaner(String::from("LR")), true);
     assert_eq!(vacuum_cleaner(String::from("URURD")), false);
     assert_eq!(vacuum_cleaner(String::from("RUULLDRD")), true)
+   }
+
+   #[test]
+   fn test_is_capitalize_correctly() { 
+    assert_eq!(is_capitalization_correct(String::from("USA")), true);
+    assert_eq!(is_capitalization_correct(String::from("Calvin")), true);
+    assert_eq!(is_capitalization_correct(String::from("compUter")), false);
+    assert_eq!(is_capitalization_correct(String::from("coding")), true);
+   }
+
+   #[test]
+   fn test_binary_add() {
+    assert_eq!(binary_add(String::from("100"), String::from("1")), "101");
+    assert_eq!(binary_add(String::from("11"), String::from("1")), "100");
+    assert_eq!(binary_add(String::from("1"), String::from("0")), "1");
    }
  }
     
