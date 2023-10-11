@@ -210,9 +210,36 @@ Ex: Given the following strings...
    */
 
 
- // fn longest_common_prefix(words: Array<String>) -> String {
+ fn longest_common_prefix(words: Vec<String>) -> String {
+  if words.is_empty() {
+    return String::new()
+  }
 
- // }
+  let common_prefix = &words[0];
+
+  for (i, c) in common_prefix.chars().enumerate() {
+    for s in &words[1..] {
+      if i >= s.len() || s.chars().nth(i).unwrap() != c {
+        return common_prefix[0..i].to_string();
+      }
+    }
+
+  }
+
+    common_prefix.to_string()
+
+  }
+
+
+ /*
+  This question is asked by Facebook. Given a string and the ability to delete at most one character, return whether or not it can form a palindrome. 
+  Note: a palindrome is a sequence of characters that reads the same forwards and backwards. 
+
+  Ex: Given the following strings...
+  "abcba", return true
+  "foobof", return true (remove the first 'o', the second 'o', or 'b')
+  "abccab", return false
+  */
 
 
 
@@ -257,6 +284,19 @@ Ex: Given the following strings...
     assert_eq!(binary_add(String::from("100"), String::from("1")), "101");
     assert_eq!(binary_add(String::from("11"), String::from("1")), "100");
     assert_eq!(binary_add(String::from("1"), String::from("0")), "1");
+   }
+
+   #[test]
+   fn test_common_prefix() {
+
+    let input1 = vec!["colorado", "color", "cold"];
+    let input2 = vec!["a", "b", "c"];
+    let input3 = vec!["spot", "spotty", "spotted"];
+
+    assert_eq!(longest_common_prefix(input1.iter().map(|s| s.to_string()).collect()), "col");
+    assert_eq!(longest_common_prefix(input2.iter().map(|s| s.to_string()).collect()), "");
+    assert_eq!(longest_common_prefix(input3.iter().map(|s| s.to_string()).collect()), "spot");
+
    }
  }
     
